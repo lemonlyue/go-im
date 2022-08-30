@@ -11,6 +11,7 @@ import (
 func main()  {
 	// init config
 	provider.InitConfig()
+	provider.InitGormDB()
 
 	addr := flag.String("addr", ":" + viper.GetString("Server.Http.Port"), "Address to listen and serve")
 	app := gin.Default()

@@ -19,7 +19,7 @@ Gorm:
     Port: 3306
     Database: "test"
     Username: "root"
-    Password: "root"
+    Password: "123456"
     Charset: "utf8mb4"
 
 # Redis配置
