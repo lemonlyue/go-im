@@ -20,8 +20,12 @@ func main()  {
 	flag.Parse()
 	config.InitConfig(env)
 
+	// init db
+	bootstrap.SetupDB()
+
 	addr := flag.String("addr", ":" + config.Get("app.port"), "Address to listen and serve")
 	app := gin.Default()
+	// init router
 	bootstrap.SetupRoute(app)
 	err := app.Run(*addr)
 	// Printf Error

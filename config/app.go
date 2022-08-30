@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"gin-skeleton/pkg/config"
 )
 
