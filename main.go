@@ -3,18 +3,24 @@ package main
 import (
 	"flag"
 	"gin-skeleton/bootstrap"
-	"gin-skeleton/provider"
+	bootstrapConfig "gin-skeleton/config"
+	"gin-skeleton/pkg/config"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"log"
 )
 
-func main()  {
-	// init config
-	provider.InitConfig()
-	provider.InitGormDB()
+func init()  {
+	bootstrapConfig.Initialize()
+}
 
-	addr := flag.String("addr", ":" + viper.GetString("Server.Http.Port"), "Address to listen and serve")
+func main()  {
+	// Init Config
+	var env string
+	flag.StringVar(&env, "env", "", "load .env file")
+	flag.Parse()
+	config.InitConfig(env)
+
+	addr := flag.String("addr", ":" + config.Get("app.port"), "Address to listen and serve")
 	app := gin.Default()
 	bootstrap.SetupRoute(app)
 	err := app.Run(*addr)
