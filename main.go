@@ -20,6 +20,9 @@ func main()  {
 	flag.Parse()
 	config.InitConfig(env)
 
+	// init logger
+	bootstrap.SetupLogger()
+
 	// init db
 	bootstrap.SetupDB()
 
