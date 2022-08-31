@@ -1,6 +1,7 @@
 package router
 
 import (
+	"gin-skeleton/app/controller"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,4 +13,9 @@ func RegisterRouter(app *gin.Engine) {
 			"message": "pong",
 		})
 	})
+
+	// Index
+	app.GET("/index/index", new(controller.IndexController).Index)
+	// Add
+	app.POST("/index/add", new(controller.IndexController).Add)
 }

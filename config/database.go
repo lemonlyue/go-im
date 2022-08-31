@@ -3,7 +3,7 @@ package config
 import "gin-skeleton/pkg/config"
 
 func init() {
-	config.Add("app", func() map[string]interface{} {
+	config.Add("database", func() map[string]interface{} {
 		return map[string]interface{} {
 			// CONNECTION
 			"connection": config.Env("DB_CONNECTION", "127.0.0.1"),
