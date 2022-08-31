@@ -5,6 +5,7 @@ import (
 	"gin-skeleton/pkg/logger"
 	"sync"
 	redis "github.com/go-redis/redis/v8"
+	"time"
 )
 
 type RedisClient struct {
