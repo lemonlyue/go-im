@@ -6,9 +6,9 @@ import (
 	"gin-skeleton/app/models"
 	"gin-skeleton/pkg/config"
 	"gin-skeleton/pkg/database"
+	"gin-skeleton/pkg/logger"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"time"
 )
 
@@ -32,7 +32,7 @@ func SetupDB()  {
 	}
 
 	// connection db && set gorm log mode
-	database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
+	database.Connect(dbConfig, logger.NewGormLogger())
 	// set max connection
 	database.SQLDB.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
 	// set max free conncetion
