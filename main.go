@@ -32,6 +32,9 @@ func main()  {
 	// init db
 	bootstrap.SetupDB()
 
+	// init redis
+	bootstrap.SetupRedis()
+
 	addr := flag.String("addr", ":" + config.Get("app.port"), "Address to listen and serve")
 	app := gin.Default()
 	// init router
