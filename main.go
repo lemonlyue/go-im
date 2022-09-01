@@ -53,6 +53,7 @@ func main()  {
 	rootCmd.AddCommand(
 		cmd.CmdServe,
 		cmd.CmdTest,
+		cmd.CmdMigrate,
 	)
 
 	// 配置默认运行 Web 服务
