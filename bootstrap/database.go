@@ -3,7 +3,6 @@ package bootstrap
 import (
 	"errors"
 	"fmt"
-	"gin-skeleton/app/models"
 	"gin-skeleton/pkg/config"
 	"gin-skeleton/pkg/database"
 	"gin-skeleton/pkg/logger"
@@ -39,11 +38,4 @@ func SetupDB()  {
 	database.SQLDB.SetMaxIdleConns(config.GetInt("database.mysql.max_idle_connections"))
 	// set connection expire time
 	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
-
-	// auto migrate
-	autoMigrate()
-}
-
-func autoMigrate()  {
-	database.DB.AutoMigrate(&models.Test{})
 }
