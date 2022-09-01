@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"gin-skeleton/app/cmd"
+	"gin-skeleton/app/cmd/make"
 	"gin-skeleton/bootstrap"
 	bootstrapConfig "gin-skeleton/config"
 	"gin-skeleton/pkg/config"
@@ -54,6 +55,7 @@ func main()  {
 		cmd.CmdServe,
 		cmd.CmdTest,
 		cmd.CmdMigrate,
+		make.CmdMake,
 	)
 
 	// 配置默认运行 Web 服务
