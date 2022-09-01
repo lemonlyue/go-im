@@ -7,7 +7,10 @@ import (
 	"net/http"
 )
 
-func SetupRoute(router *gin.Engine)  {
+func SetupRoute() *gin.Engine {
+	// gin 实例
+	router := gin.New()
+
 	// Register Global Middleware
 	registerGlobalMiddleWare(router)
 
@@ -16,6 +19,8 @@ func SetupRoute(router *gin.Engine)  {
 
 	// Handle 404 Not Found
 	setup404Handler(router)
+
+	return router
 }
 
 func registerGlobalMiddleWare(router *gin.Engine)  {

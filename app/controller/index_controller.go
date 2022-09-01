@@ -25,7 +25,6 @@ func (index *IndexController) Add(c *gin.Context)  {
 
 	test := models.Test{Name: name}
 	database.DB.Create(&test)
-	fmt.Println(2)
 
 	response.Data(c, name)
 }

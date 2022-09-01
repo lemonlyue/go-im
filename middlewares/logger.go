@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"bytes"
+	"gin-skeleton/pkg/app"
 	"gin-skeleton/pkg/helpers"
 	"gin-skeleton/pkg/logger"
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,11 @@ func Logger() gin.HandlerFunc {
 		// 设置开始时间
 		start := time.Now()
 		c.Next()
+
+		// 单元测试不记录日志
+		if app.IsUnitTest() {
+			return
+		}
 
 		// 开始记录日志的逻辑
 		cost := time.Since(start)

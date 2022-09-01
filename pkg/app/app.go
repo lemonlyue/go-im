@@ -1,6 +1,8 @@
 package app
 
-import "gin-skeleton/pkg/config"
+import (
+	"gin-skeleton/pkg/config"
+)
 
 func IsLocal() bool {
 	return config.Get("app.env") == "local"
@@ -12,4 +14,8 @@ func IsProduction() bool {
 
 func IsTest() bool {
 	return config.Get("app.env") == "test"
+}
+
+func IsUnitTest() bool {
+	return true
 }
