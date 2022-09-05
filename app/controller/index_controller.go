@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"gin-skeleton/app/models"
 	"gin-skeleton/pkg/database"
 	"gin-skeleton/pkg/response"

@@ -2,6 +2,7 @@ package router
 
 import (
 	"gin-skeleton/app/controller"
+	"gin-skeleton/app/ws"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,4 +19,10 @@ func RegisterRouter(app *gin.Engine) {
 	app.GET("/index/index", new(controller.IndexController).Index)
 	// Add
 	app.POST("/index/add", new(controller.IndexController).Add)
+
+	// ws
+	group := app.Group("/ws")
+	{
+		group.GET("", new(ws.WsController).WsClient)
+	}
 }
