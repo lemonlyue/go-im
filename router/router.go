@@ -10,7 +10,7 @@ func RegisterRouter(app *gin.Engine) {
 	// 测试路由
 	app.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"code": 200,
+			"code":    200,
 			"message": "pong",
 		})
 	})
@@ -19,6 +19,9 @@ func RegisterRouter(app *gin.Engine) {
 	app.GET("/index/index", new(controller.IndexController).Index)
 	// Add
 	app.POST("/index/add", new(controller.IndexController).Add)
+
+	// login
+	app.POST("/login", new(controller.UserController).Login)
 
 	// ws
 	group := app.Group("/ws")
