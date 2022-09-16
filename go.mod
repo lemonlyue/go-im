@@ -7,6 +7,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/goccy/go-json v0.9.11
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/gorilla/websocket v1.5.0
 	github.com/iancoleman/strcase v0.2.0
 	github.com/magiconair/properties v1.8.6
