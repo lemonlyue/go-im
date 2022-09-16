@@ -6,7 +6,6 @@ import (
 	"gin-skeleton/pkg/jwt"
 	"gin-skeleton/pkg/response"
 	"github.com/gin-gonic/gin"
-	"strconv"
 )
 
 type UserController struct {
@@ -43,7 +42,7 @@ func (user *UserController) Register(c *gin.Context) {
 	userModel.Create()
 
 	if userModel.ID > 0 {
-		id := strconv.FormatUint(userModel.ID, 10)
+		id := userModel.GetStringID()
 		token := jwt.NewJWT().IssueToken(id, userModel.Nickname)
 		response.Data(c, map[string]string{
 			"id":    id,
@@ -53,6 +52,34 @@ func (user *UserController) Register(c *gin.Context) {
 	}
 
 	response.FailedCommon(c, "注册失败,请重试")
+}
+
+// Login 登录
+func (user *UserController) Login(c *gin.Context) {
+	// email
+	email := c.PostForm("email")
+	// password
+	password := c.PostForm("password")
+
+	if email == "" || password == "" {
+		response.ParamError(c)
+		return
+	}
+
+	var userModel models.User
+	database.DB.Where(&models.User{Email: email}).First(&userModel)
+
+	if userModel.ID > 0 {
+		id := userModel.GetStringID()
+		token := jwt.NewJWT().IssueToken(id, userModel.Nickname)
+		response.Data(c, map[string]string{
+			"id":    id,
+			"token": token,
+		})
+		return
+	}
+
+	response.FailedCommon(c, "该邮箱未注册,请注册后登录")
 }
 
 // GetUserInfo 获取用户信息

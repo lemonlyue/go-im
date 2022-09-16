@@ -3,6 +3,7 @@ package router
 import (
 	"gin-skeleton/app/controller"
 	"gin-skeleton/app/ws"
+	"gin-skeleton/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,8 +21,11 @@ func RegisterRouter(app *gin.Engine) {
 	// Add
 	app.POST("/index/add", new(controller.IndexController).Add)
 
+	// user module
 	// login
 	app.POST("/login", new(controller.UserController).Login)
+	// get user info
+	app.GET("/getUserInfo", middlewares.AuthJWT(), new(controller.UserController).GetUserInfo)
 
 	// ws
 	group := app.Group("/ws")
