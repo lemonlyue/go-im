@@ -2,20 +2,20 @@ package make
 
 import (
 	"fmt"
+	"gin-skeleton/pkg/app"
 	"gin-skeleton/pkg/console"
 	"github.com/spf13/cobra"
 )
 
 var CmdMakeMigration = &cobra.Command{
-	Use: "migration",
+	Use:   "migration",
 	Short: "Create a migration file, example: make migration add_users_table",
-	Run: runMakeMigration,
-	Args: cobra.ExactArgs(1),
+	Run:   runMakeMigration,
+	Args:  cobra.ExactArgs(1),
 }
 
-func runMakeMigration(cmd *cobra.Command, args []string)  {
-	//timeStr := app.TimenowInTimezone().Format("2006_01_02_150405")
-	timeStr := ""
+func runMakeMigration(cmd *cobra.Command, args []string) {
+	timeStr := app.TimenowInTimezone().Format("2006_01_02_150405")
 
 	model := makeModelFromString(args[0])
 	fileName := timeStr + "_" + model.PackageName
