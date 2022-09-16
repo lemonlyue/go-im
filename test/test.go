@@ -2,6 +2,7 @@ package test
 
 import (
 	"gin-skeleton/bootstrap"
+	"gin-skeleton/pkg/app"
 	"gin-skeleton/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http/httptest"
@@ -9,8 +10,9 @@ import (
 
 var router *gin.Engine
 
-func init()  {
+func init() {
 	router = bootstrap.SetupRoute()
+	app.IsUnitTestEnv = true
 }
 
 func Get(url string, data map[string]string) *httptest.ResponseRecorder {
@@ -23,7 +25,7 @@ func Get(url string, data map[string]string) *httptest.ResponseRecorder {
 }
 
 func Post(url string, data map[string]string) *httptest.ResponseRecorder {
-	request := httptest.NewRequest("POST", url + utils.ParseToStr(data), nil)
+	request := httptest.NewRequest("POST", url+utils.ParseToStr(data), nil)
 	response := httptest.NewRecorder()
 
 	router.ServeHTTP(response, request)

@@ -4,6 +4,8 @@ import (
 	"gin-skeleton/pkg/config"
 )
 
+var IsUnitTestEnv = false
+
 func IsLocal() bool {
 	return config.Get("app.env") == "local"
 }
@@ -17,5 +19,5 @@ func IsTest() bool {
 }
 
 func IsUnitTest() bool {
-	return true
+	return IsUnitTestEnv == true
 }
