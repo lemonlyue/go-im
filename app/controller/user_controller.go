@@ -12,8 +12,8 @@ import (
 type UserController struct {
 }
 
-// Login 登录
-func (user *UserController) Login(c *gin.Context) {
+// Register 注册
+func (user *UserController) Register(c *gin.Context) {
 	// nickname
 	nickname := c.PostForm("nickname")
 	// email
@@ -53,11 +53,6 @@ func (user *UserController) Login(c *gin.Context) {
 	}
 
 	response.FailedCommon(c, "注册失败,请重试")
-}
-
-// Logout 退出登录
-func (user *UserController) Logout(c *gin.Context) {
-
 }
 
 // GetUserInfo 获取用户信息
