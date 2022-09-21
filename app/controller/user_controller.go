@@ -22,8 +22,10 @@ func (user *UserController) Register(c *gin.Context) {
 	password := c.PostForm("password")
 	// 验证码
 	captcha := c.PostForm("captcha")
+	// 头像
+	avatarUrl := c.PostForm("avatar_url")
 
-	if nickname == "" || email == "" || password == "" || captcha == "" {
+	if nickname == "" || email == "" || password == "" || captcha == "" || avatarUrl == "" {
 		response.ParamError(c)
 		return
 	}
@@ -39,9 +41,10 @@ func (user *UserController) Register(c *gin.Context) {
 	}
 
 	userModel = models.User{
-		Nickname: nickname,
-		Email:    email,
-		Password: password,
+		Nickname:  nickname,
+		Email:     email,
+		Password:  password,
+		AvatarUrl: avatarUrl,
 	}
 
 	userModel.Create()
