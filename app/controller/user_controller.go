@@ -2,6 +2,7 @@ package controller
 
 import (
 	"gin-skeleton/app/models"
+	"gin-skeleton/pkg/auth"
 	"gin-skeleton/pkg/database"
 	"gin-skeleton/pkg/jwt"
 	"gin-skeleton/pkg/response"
@@ -19,11 +20,15 @@ func (user *UserController) Register(c *gin.Context) {
 	email := c.PostForm("email")
 	// password
 	password := c.PostForm("password")
+	// 验证码
+	captcha := c.PostForm("captcha")
 
-	if nickname == "" || email == "" || password == "" {
+	if nickname == "" || email == "" || password == "" || captcha == "" {
 		response.ParamError(c)
 		return
 	}
+
+	// 验证验证码
 
 	var userModel models.User
 	database.DB.Where(&models.User{Email: email}).First(&userModel)
@@ -84,5 +89,6 @@ func (user *UserController) Login(c *gin.Context) {
 
 // GetUserInfo 获取用户信息
 func (user *UserController) GetUserInfo(c *gin.Context) {
-
+	userModel := auth.CurrentUser(c)
+	response.Data(c, userModel)
 }

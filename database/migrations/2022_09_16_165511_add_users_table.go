@@ -13,9 +13,10 @@ func init() {
 	type User struct {
 		models.BaseModel
 
-		Nickname string `gorm:"type:varchar(255);not null;index"`
-		Email    string `gorm:"type:varchar(255);default:null;uniqueIndex"`
-		Password string `gorm:"type:varchar(255)"`
+		Nickname  string `gorm:"type:varchar(255);not null;index"`
+		AvatarUrl string `gorm:"type:varchar(255);not null"`
+		Email     string `gorm:"type:varchar(255);not null;uniqueIndex"`
+		Password  string `gorm:"type:varchar(255);not null"`
 
 		models.CommonTimestampsField
 	}

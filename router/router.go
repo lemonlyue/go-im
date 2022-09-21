@@ -22,10 +22,15 @@ func RegisterRouter(app *gin.Engine) {
 	app.POST("/index/add", new(controller.IndexController).Add)
 
 	// user module
-	// login
-	app.POST("/login", new(controller.UserController).Login)
-	// get user info
-	app.GET("/getUserInfo", middlewares.AuthJWT(), new(controller.UserController).GetUserInfo)
+	userGroup := app.Group("/user")
+	{
+		// login
+		userGroup.POST("/login", new(controller.UserController).Login)
+		// register
+		userGroup.POST("/register", new(controller.UserController).Register)
+		// get user info
+		userGroup.GET("/getUserInfo", middlewares.AuthJWT(), new(controller.UserController).GetUserInfo)
+	}
 
 	// ws
 	group := app.Group("/ws")
