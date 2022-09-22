@@ -12,10 +12,10 @@ import (
 var DB *gorm.DB
 var SQLDB *sql.DB
 
-func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface)  {
+func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 	var err error
 	DB, err = gorm.Open(dbConfig, &gorm.Config{
-		Logger: _logger,
+		Logger:                                   _logger,
 		DisableForeignKeyConstraintWhenMigrating: false,
 	})
 	// handle error
@@ -41,7 +41,7 @@ func DeleteAllTables() error {
 	case "mysql":
 		err = deleteMySQLTables()
 	case "sqlite":
-		deleteAllSqliteTables()
+		err = deleteAllSqliteTables()
 	default:
 		panic(errors.New("database connection not supported"))
 	}
