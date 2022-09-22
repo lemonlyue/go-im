@@ -6,6 +6,7 @@ import (
 	"gin-skeleton/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http/httptest"
+	"strings"
 )
 
 var router *gin.Engine
@@ -25,7 +26,10 @@ func Get(url string, data map[string]string) *httptest.ResponseRecorder {
 }
 
 func Post(url string, data map[string]string) *httptest.ResponseRecorder {
-	request := httptest.NewRequest("POST", url+utils.ParseToStr(data), nil)
+	params := utils.ParseToStr(data)
+	params = strings.TrimLeft(params, "?")
+	request := httptest.NewRequest("POST", url, strings.NewReader(params))
+	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	response := httptest.NewRecorder()
 
 	router.ServeHTTP(response, request)
