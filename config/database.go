@@ -4,9 +4,9 @@ import "gin-skeleton/pkg/config"
 
 func init() {
 	config.Add("database", func() map[string]interface{} {
-		return map[string]interface{} {
+		return map[string]interface{}{
 			// CONNECTION
-			"connection": config.Env("DB_CONNECTION", "127.0.0.1"),
+			"connection": config.Env("DB_CONNECTION", "mysql"),
 			"mysql": map[string]interface{}{
 				// DATABASE CONFIG
 				"host":     config.Env("DB_HOST", "127.0.0.1"),
