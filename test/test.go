@@ -2,7 +2,9 @@ package test
 
 import (
 	"gin-skeleton/bootstrap"
+	bootstrapConfig "gin-skeleton/config"
 	"gin-skeleton/pkg/app"
+	"gin-skeleton/pkg/config"
 	"gin-skeleton/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http/httptest"
@@ -14,6 +16,18 @@ var router *gin.Engine
 func init() {
 	router = bootstrap.SetupRoute()
 	app.IsUnitTestEnv = true
+
+	bootstrapConfig.Initialize()
+	config.InitConfig("")
+
+	// init logger
+	bootstrap.SetupLogger()
+
+	//init db
+	bootstrap.SetupDB()
+
+	// init redis
+	bootstrap.SetupRedis()
 }
 
 func Get(url string, data map[string]string) *httptest.ResponseRecorder {
