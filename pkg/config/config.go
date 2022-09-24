@@ -3,6 +3,8 @@ package config
 import (
 	"gin-skeleton/pkg/helpers"
 	"os"
+	"regexp"
+	"strings"
 
 	"github.com/spf13/cast"
 	viperlib "github.com/spf13/viper"
@@ -40,21 +42,41 @@ func loadConfig() {
 }
 
 func loadEnv(envSuffix string) {
+	basePath := ""
+	if curPath, err := os.Getwd(); err == nil {
+		// 路径进行处理，兼容单元测试程序程序启动时的奇怪路径
+		if len(os.Args) > 1 && strings.HasPrefix(os.Args[1], "-test") {
+			basePath = strings.Replace(strings.Replace(curPath, match(curPath, "/test*"), "", 1), match(curPath, `\test*`), "", 1)
+		} else {
+			basePath = curPath
+		}
+	}
+
 	envPath := ".env"
+	envPath = basePath + "/" + envPath
 	if len(envSuffix) > 0 {
 		filepath := ".env." + envSuffix
 		if _, err := os.Stat(filepath); err == nil {
 			envPath = filepath
 		}
 	}
-
-	viper.SetConfigName(envPath)
+	viper.SetConfigFile(envPath)
 	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
 	}
 
 	// watch config change
 	viper.WatchConfig()
+}
+
+func match(curPath string, matchStr string) string {
+	re := regexp.MustCompile(matchStr)
+	loc := re.FindStringIndex(curPath)
+	matchPath := ""
+	if loc != nil {
+		matchPath = curPath[loc[0]:]
+	}
+	return matchPath
 }
 
 // get env value
